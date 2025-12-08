@@ -1,5 +1,5 @@
-//required dotenv configuration
-require('dotenv').config;
+//use ENV variables
+require('dotenv').config();
 const mongoose = require('mongoose');
 
 var createError = require('http-errors');
@@ -8,7 +8,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+//add new route files here
 var indexRouter = require('./routes/index');
+const spotifyRouter = require('./routes/spotify');
 
 var app = express();
 
@@ -31,7 +33,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//add new routes here
 app.use('/', indexRouter);
+app.use('/api/spotify', spotifyRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
