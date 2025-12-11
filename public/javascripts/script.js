@@ -2,6 +2,7 @@
 
 
 
+
 //Generate a token for the Spotify API if it doesn't exist 
 async function getToken(){
     let token = null;
@@ -41,3 +42,5 @@ async function getAlbum(){
         console.log('error', error);
     }
 }
+
+
