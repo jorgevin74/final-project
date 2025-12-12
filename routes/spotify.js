@@ -13,7 +13,7 @@ router.get('/token', async function(req,res){
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
-            body: 'grant_type=client_credentials&client_id=${SPOTIFY_CLIENT_ID}&client_secret=${SPOTIFY_CLIENT_SECRET}'
+            body: `grant_type=client_credentials&client_id=${SPOTIFY_CLIENT_ID}&client_secret=${SPOTIFY_CLIENT_SECRET}`
         });
         const data = await response.json();
         res.json(data);
