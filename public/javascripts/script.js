@@ -1,7 +1,7 @@
 // Front end JavaScript code goes here
 const searchInput  = document.getElementById('search');
 const enterBtn = document.getElementById('enter');
-const searchContainerEl = document.getElementById('search_area_results');
+const searchContainerEl = document.getElementById('img_area_results');
 
 //add the information of albums onto here
 dataArr = []
@@ -47,47 +47,61 @@ async function searchForAlbum(searchInput){
 }
 
 //add the album's information (album cover, artist name & release date) from the spotify api onto the web page
-function addAlbumInfo(albums){
-
-    //resets the search items
+function addAlbumInfo(albums) {
+    // reset previous results
     searchContainerEl.innerHTML = '';
 
-    //creates an unorganized list for the albums
+    // create UL
     const UnorganizedList = document.createElement('ul');
     UnorganizedList.classList.add('track');
     searchContainerEl.appendChild(UnorganizedList);
 
-    //for loop that goes through the top 5 searches
-    for(let i = 0; i < 5; i++){
-        //creates a list item
+    // loop through top 5 albums
+    for (let i = 0; i < 5; i++) {
+        const album = albums[i];
+
+        // create LI
         const listItem = document.createElement('li');
         listItem.classList.add("track_item");
 
-        //creates an img tag and adds the album artwork into the tag
+        // --- album_cover div ---
+        const coverDiv = document.createElement('div');
+        coverDiv.classList.add('album_cover');
+
         const imgEl = document.createElement('img');
         imgEl.classList.add('album_artwork');
-        imgEl.src = albums[i].images[1].url;
+        imgEl.src = album.images[1].url;
+        coverDiv.appendChild(imgEl);
 
-        //creates a text tag to add the artists name
-        const textheading1 = document.createElement('h2');
-        textheading1.classList.add('artist_name');
-        textheading1.textContent = albums[i].artists[0].name;
+        // --- album_info div ---
+        const infoDiv = document.createElement('div');
+        infoDiv.classList.add('album_info');
 
-        //creates a text tag to add the album title
-        const textheading2 = document.createElement('h2');
-        textheading2.classList.add('album_title');
-        textheading2.textContent = albums[i].name;
+        // Artist
+        const artistEl = document.createElement('h2');
+        artistEl.classList.add('artist_name');
+        artistEl.innerHTML = `<span class="label">Artist: </span><span class="value">${album.artists[0].name}</span>`;
 
-        //creates a text tag to show when the album released
-        const textheading3 = document.createElement('h2');
-        textheading3.classList.add('album_release');
-        textheading3.textContent = albums[i].release_date;
+        // Album Title
+        const titleEl = document.createElement('h2');
+        titleEl.classList.add('album_title');
+        titleEl.innerHTML = `<span class="label">Album: </span><span class="value">${album.name}</span>`;
 
-        //appends it all 
-        listItem.appendChild(imgEl);
-        listItem.appendChild(textheading1);
-        listItem.appendChild(textheading2);
-        listItem.appendChild(textheading3);
+        // Release Date
+        const releaseEl = document.createElement('h2');
+        releaseEl.classList.add('album_release');
+        releaseEl.innerHTML = `<span class="label">Release Date: </span><span class="value">${album.release_date}</span>`;
+
+        // append text info
+        infoDiv.appendChild(artistEl);
+        infoDiv.appendChild(titleEl);
+        infoDiv.appendChild(releaseEl);
+
+        // append both divs into LI
+        listItem.appendChild(coverDiv);
+        listItem.appendChild(infoDiv);
+
+        // append LI into UL
         UnorganizedList.appendChild(listItem);
     }
 }
@@ -98,10 +112,7 @@ async function retrieveAlbumInfo(SearchTerm){
     addAlbumInfo(result.albums.items);
 }
 
-
-
 //function that once you click on the album, then the review panel will pop up
-
 
 
 
