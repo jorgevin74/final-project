@@ -171,3 +171,50 @@ span,h2{
 .album_release{
   font-size: 17px;
 }
+
+
+/*pop up window selectors*/
+
+#popup {
+  display: none; 
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.popup-content {
+  margin: 10% auto;
+  padding: 20px;
+  width: 300px;
+  border-radius: 8px;
+  text-align: center;
+  background: #fff;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+#greeting{
+  text-align: center;
+  justify-content: center;
+}
+
+#closePopUp {
+  font-size: 15px;
+  width: 100px;
+  height: 30px;
+  padding: 2px 5px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.5s ease-in-out;
+}
+#closePopUp:hover{
+  background-color: #999;
+  cursor:pointer;
+}
+

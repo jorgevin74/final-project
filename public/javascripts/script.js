@@ -3,6 +3,10 @@ const searchInput  = document.getElementById('search');
 const enterBtn = document.getElementById('enter');
 const searchContainerEl = document.getElementById('img_area_results');
 
+
+  const popup = document.getElementById('popup');
+  const closeBtn = document.getElementById('closePopUp');
+
 //add the information of albums onto here
 dataArr = []
 
@@ -129,6 +133,16 @@ enterBtn.addEventListener('click', function(){
     const artSearchFor = searchInput.value;
     retrieveAlbumInfo(artSearchFor);
 })
+
+
+
+window.addEventListener('load', () => {
+  popup.style.display = 'flex';
+});
+
+closeBtn.addEventListener('click', () => {
+    popup.style.display = 'none';
+});
 
 
 
