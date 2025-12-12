@@ -98,6 +98,13 @@ async function retrieveAlbumInfo(SearchTerm){
     addAlbumInfo(result.albums.items);
 }
 
+
+
+//function that once you click on the album, then the review panel will pop up
+
+
+
+
 //when you press enter on the keyboard, it searches for the album from spotify
 searchInput.addEventListener('keydown', function(event){
     if(event.key === 'Enter'){

@@ -1,6 +1,48 @@
+:root{
+  --background-color: gray;
+}
+
+html{
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  
+  display:flex;
+  max-width: 1900px;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+#search{
+  width: 200px;
+  height: 30px;
+  padding: 5px 10px;
+  border: 1px solid #000;
+  border-radius: 4px;
+}
+
+#enter{
+  width: 100px;
+  height: 30px;
+  padding: 2px 5px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  transition: 0.5s ease-in;
+}
+
+#enter:hover{
+  background-color: gray;
+  cursor: pointer;
 }
 
 a {
