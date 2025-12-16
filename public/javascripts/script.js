@@ -4,8 +4,17 @@ const enterBtn = document.getElementById('enter');
 const searchContainerEl = document.getElementById('img_area_results');
 
 
-  const popup = document.getElementById('popup');
-  const closeBtn = document.getElementById('closePopUp');
+const popup = document.getElementById('popup');
+const closeBtn = document.getElementById('closePopUp');
+
+//setting everything up to submit album reviews in here
+const track_items = document.getElementsByClassName('track_item');
+const reviewPopUp = document.getElementById('review_popup');
+
+const postBtn = document.getElementById('post');
+
+
+
 
 //add the information of albums onto here
 dataArr = []
@@ -99,12 +108,24 @@ function addAlbumInfo(albums) {
 
         //add event listener here for clickable album links
         listItem.addEventListener('click', function(){
-            addReview(album.name, album.release_date, album.artists[0].name);
             reviewPopUp.style.display = "flex";
             UnorganizedList.style.display = "none"
-        });
+   
+            const albumDetails = document.getElementById('album_details');
+            albumDetails.innerHTML = `
+                <img src="${album.images[1].url}" class="album_artwork" />
+                <h2 class="album_title">Album: ${album.name}</h2>
+                <h2 class="artist_name">Artist: ${album.artists[0].name}</h2>
+            `;
+            });
 
-
+        //add event listener here to post the content to the board
+        postBtn.addEventListener('click', function(){
+            reviewPopUp.style.display = "none";
+            addReview(album.name, album.artists[0].name, album.images[1].url);
+        })
+        
+        
         // append text info
         infoDiv.appendChild(artistEl);
         infoDiv.appendChild(titleEl);
@@ -120,10 +141,10 @@ function addAlbumInfo(albums) {
 }
 
 
-async function addReview(reviewObjecttitle, reviewObjectDate, reviewObjectCover){
+async function addReview(reviewObjecttitle, reviewObjectArtist, reviewObjectCover){
     const postData = {
         Title: reviewObjecttitle,
-        releaseDate: reviewObjectDate,
+        Artist: reviewObjectArtist,
         albumCover: reviewObjectCover,
     }
     const response = await fetch('/api/review', {
@@ -140,7 +161,7 @@ async function addReview(reviewObjecttitle, reviewObjectDate, reviewObjectCover)
 
 async function updateReview(id, previousNumOfLikes){
     const postData = {
-        numberOfLikes: previousNumOfLikes++
+        numberOfLikes: previousNumOfLikes + 1
     }
     const response = await fetch('/api/review/' + id, {
         method: 'PUT', // Specify the HTTP method as POST
@@ -184,15 +205,6 @@ window.addEventListener('load', () => {
 //once you click on the close or in this case Get Started Button, then the pop up will go away and will lead you into the website
 closeBtn.addEventListener('click', () => {
     popup.style.display = 'none';
-});
-
-
-//setting everything up to submit album reviews in here
-const track_items = document.getElementsByClassName('track_item');
-const reviewPopUp = document.getElementById('review_popup');
-
-track_items.addEventListener('click', () =>{
-    reviewPopUp.style.display = flex
 });
 
 

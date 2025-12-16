@@ -3,8 +3,20 @@ var router = express.Router();
 const Reviews = require('../models/Reviews');
 
 
+/*GET */
+router.get('/', async function(req, res, next){
+    try{
+        const items = await Reviews.find();
+        res.json(items);
+    } catch(error){
+        console.log(error);
+        res.status(500);
+        res.send('Something went wrong');
+    }
+});
+
 /*POST  */
-router.post('/', async function (){
+router.post('/', async function (request, response){
     console.log(request.body);
     try {
         const newFields = {
@@ -17,12 +29,13 @@ router.post('/', async function (){
         response.json(newItem);
     }  catch (error) {
         console.log(error);
-        res.send('Something went wrong');
+        response.send('Something went wrong');
     }
 });
 
 
-router.put('/:id', async function () {
+/*PUT */
+router.put('/:id', async function (request, response) {
     console.log(request.params.id);
     console.log(request.body);
 
@@ -39,3 +52,5 @@ router.put('/:id', async function () {
         response.send('something went wrong')
     }
 })
+
+module.exports = router;
