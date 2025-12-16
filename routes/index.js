@@ -1,9 +1,14 @@
 var express = require('express');
 var router = express.Router();
+const Reviews = require('../models/Reviews');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Public Archive' });
+router.get('/', async function(req, res, next) {
+  try{
+    const reviews = await Reviews.find();
+    res.render('index', {list: Reviews});
+  } catch(error){
+    console.log(error);
+  }
 });
-
 module.exports = router;

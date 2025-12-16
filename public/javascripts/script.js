@@ -60,8 +60,8 @@ function addAlbumInfo(albums) {
     UnorganizedList.classList.add('track');
     searchContainerEl.appendChild(UnorganizedList);
 
-    // loop through top 5 albums
-    for (let i = 0; i < 5; i++) {
+    // loop through the top 8 albums searched
+    for (let i = 0; i < 8; i++) {
         const album = albums[i];
 
         // create LI
@@ -80,21 +80,30 @@ function addAlbumInfo(albums) {
         // --- album_info div ---
         const infoDiv = document.createElement('div');
         infoDiv.classList.add('album_info');
+        
+        // Album Title
+        const titleEl = document.createElement('h2');
+        titleEl.classList.add('album_title');
+        titleEl.innerHTML = `<span class="label">Album: </span><span class="value">${album.name}</span>`;
 
         // Artist
         const artistEl = document.createElement('h2');
         artistEl.classList.add('artist_name');
         artistEl.innerHTML = `<span class="label">Artist: </span><span class="value">${album.artists[0].name}</span>`;
 
-        // Album Title
-        const titleEl = document.createElement('h2');
-        titleEl.classList.add('album_title');
-        titleEl.innerHTML = `<span class="label">Album: </span><span class="value">${album.name}</span>`;
-
         // Release Date
         const releaseEl = document.createElement('h2');
         releaseEl.classList.add('album_release');
         releaseEl.innerHTML = `<span class="label">Release Date: </span><span class="value">${album.release_date}</span>`;
+
+
+        //add event listener here for clickable album links
+        listItem.addEventListener('click', function(){
+            addReview(album.name, album.release_date, album.artists[0].name);
+            reviewPopUp.style.display = "flex";
+            UnorganizedList.style.display = "none"
+        });
+
 
         // append text info
         infoDiv.appendChild(artistEl);
@@ -110,15 +119,47 @@ function addAlbumInfo(albums) {
     }
 }
 
+
+async function addReview(reviewObjecttitle, reviewObjectDate, reviewObjectCover){
+    const postData = {
+        Title: reviewObjecttitle,
+        releaseDate: reviewObjectDate,
+        albumCover: reviewObjectCover,
+    }
+    const response = await fetch('/api/review', {
+        method: 'POST', // Specify the HTTP method as POST
+        headers: {
+            'Content-Type': 'application/json' // Indicate that the body is JSON
+        },
+        body: JSON.stringify(postData) // Convert the data object to a JSON string
+    });
+    const data = await response.json();
+    console.log('added item', data);
+}
+
+
+async function updateReview(id, previousNumOfLikes){
+    const postData = {
+        numberOfLikes: previousNumOfLikes++
+    }
+    const response = await fetch('/api/review/' + id, {
+        method: 'PUT', // Specify the HTTP method as POST
+        headers: {
+            'Content-Type': 'application/json' // Indicate that the body is JSON
+        },
+        body: JSON.stringify(postData) // Convert the data object to a JSON string
+    });
+    const data = await response.json();
+    console.log('added item', data);
+}
+
+
+
 //waits a little while before retrieveing the information from the dataArray so that the info can be filled and then calls upon the other function (add album info) 
 async function retrieveAlbumInfo(SearchTerm){
     const result = await searchForAlbum(SearchTerm);
     addAlbumInfo(result.albums.items);
 }
-
-//function that once you click on the album, then the review panel will pop up
-
-
 
 //when you press enter on the keyboard, it searches for the album from spotify
 searchInput.addEventListener('keydown', function(event){
@@ -135,13 +176,23 @@ enterBtn.addEventListener('click', function(){
 })
 
 
-
+//when you load the page the the pop up window will display as before it was hidden
 window.addEventListener('load', () => {
   popup.style.display = 'flex';
 });
 
+//once you click on the close or in this case Get Started Button, then the pop up will go away and will lead you into the website
 closeBtn.addEventListener('click', () => {
     popup.style.display = 'none';
+});
+
+
+//setting everything up to submit album reviews in here
+const track_items = document.getElementsByClassName('track_item');
+const reviewPopUp = document.getElementById('review_popup');
+
+track_items.addEventListener('click', () =>{
+    reviewPopUp.style.display = flex
 });
 
 

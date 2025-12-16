@@ -11,6 +11,7 @@ var logger = require('morgan');
 //add new route files here
 var indexRouter = require('./routes/index');
 const spotifyRouter = require('./routes/spotify');
+const reviewRouter = require('./routes/review');
 
 var app = express();
 
@@ -36,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //add new routes here
 app.use('/', indexRouter);
 app.use('/api/spotify', spotifyRouter);
+app.use('/api/review', reviewRouter);
 
 
 // catch 404 and forward to error handler
