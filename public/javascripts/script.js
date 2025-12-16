@@ -122,7 +122,10 @@ function addAlbumInfo(albums) {
         //add event listener here to post the content to the board
         postBtn.addEventListener('click', function(){
             reviewPopUp.style.display = "none";
-            addReview(album.name, album.artists[0].name, album.images[1].url);
+
+            const userScore = document.getElementById('UserScore').value;
+            const userReview = document.getElementById('userText').value;
+            addReview(album.name, album.artists[0].name, album.images[1].url, userScore, userReview);
         })
         
         
@@ -140,12 +143,15 @@ function addAlbumInfo(albums) {
     }
 }
 
-
-async function addReview(reviewObjecttitle, reviewObjectArtist, reviewObjectCover){
+//adds the review to the database
+async function addReview(reviewObjecttitle, reviewObjectArtist, reviewObjectCover, userScore, userReview){
     const postData = {
         Title: reviewObjecttitle,
         Artist: reviewObjectArtist,
         albumCover: reviewObjectCover,
+        score: userScore,
+        review: userReview,
+        numberOfLikes: 0
     }
     const response = await fetch('/api/review', {
         method: 'POST', // Specify the HTTP method as POST
@@ -158,7 +164,7 @@ async function addReview(reviewObjecttitle, reviewObjectArtist, reviewObjectCove
     console.log('added item', data);
 }
 
-
+/*Updates the Review and adds a thumbs up to it */
 async function updateReview(id, previousNumOfLikes){
     const postData = {
         numberOfLikes: previousNumOfLikes + 1
