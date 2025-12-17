@@ -5,11 +5,11 @@ const Reviews = require('../models/Reviews');
 
 
 /*GET */
-router.get('/', async function(req, res, next){
-    try{
+router.get('/', async function (req, res, next) {
+    try {
         const items = await Reviews.find();
         res.json(items);
-    } catch(error){
+    } catch (error) {
         console.log(error);
         res.status(500);
         res.send('Something went wrong');
@@ -17,7 +17,7 @@ router.get('/', async function(req, res, next){
 });
 
 /*POST  */
-router.post('/', async function (request, response){
+router.post('/', async function (request, response) {
     console.log(request.body);
     try {
         const newFields = {
@@ -28,7 +28,7 @@ router.post('/', async function (request, response){
         console.log(newFields)
         const newItem = await Reviews.create(newFields);
         response.json(newItem);
-    }  catch (error) {
+    } catch (error) {
         console.log(error);
         response.send('Something went wrong');
     }

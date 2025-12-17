@@ -6,7 +6,7 @@
 
 ## Project Overview
 
-- Briefly describe the project and its purpose.
+- This Project, Titled 'TrackLogged' allows users to get 
 
 ## Endpoints
 
