@@ -207,9 +207,14 @@ function addAlbumInfo(albums) {
             ${newReview.review}
         </div>
         <div id="review_button">
+            <img class="likeButton" src="/images/thumbs-up.png" data-id="{{this._id}}"
+            data-likes="{{this.numberOfLikes}}" alt="thumbs up image button">
             <span class="likeCount">${newReview.numberOfLikes}</span>
         </div>
-    `;
+        `;
+
+        document.getElementById('UserScore').value = '';
+        document.getElementById('userText').value = '';
 
         listEl.appendChild(reviewDiv);
     });
@@ -284,7 +289,7 @@ closeBtn.addEventListener('click', () => {
     popup.style.display = 'none';
 });
 
-
+//these are the event listeners to for the sort buttons, each one does their respective job
 const highestRatedBtn = document.getElementById('highest_rated');
 const lowestRatedBtn = document.getElementById('lowest_rated');
 const allPostsBtn = document.getElementById('all');
@@ -295,10 +300,8 @@ function sortReviews(compareReviews) {
     const listEl = document.querySelector('.list');
     const reviews = Array.from(listEl.querySelectorAll('.review_content'));
 
-    // sort the array of elements
     reviews.sort(compareReviews);
 
-    // clear and re-append in new order
     listEl.innerHTML = '';
     reviews.forEach(r => listEl.appendChild(r));
 }

@@ -84,7 +84,6 @@ header {
 
 
 /*Nav Bar Selectors*/
-
 nav {
   display: flex;
   flex-direction: row;
@@ -95,62 +94,82 @@ nav {
 }
 
 #all {
-  width: 100px;
-  height: 30px;
-  padding: 2px 5px;
-  border: 1px solid #000;
-  border-radius: 4px;
-  gap: 5px;
-  transition: 0.5s ease-in-out;
-}
-
-#recent {
-  width: 100px;
-  height: 30px;
-  padding: 2px 5px;
-  border: 1px solid #000;
-  border-radius: 4px;
-  gap: 5px;
-  transition: 0.5s ease-in-out;
-}
-
-#oldest {
-  width: 100px;
-  height: 30px;
-  padding: 2px 5px;
-  border: 1px solid #000;
-  border-radius: 4px;
-  gap: 5px;
-  transition: 0.5s ease-in-out;
-}
-
-#highest_rated {
+  background-color: #5BC0BE;
+  color: white;
   width: auto;
   height: 30px;
   padding: 2px 5px;
-  border: 1px solid #000;
   border-radius: 4px;
   gap: 5px;
-  transition: 0.5s ease-in-out;
+  transition: 0.3s ease-in;
+}
+
+#recent {
+  background-color: #5BC0BE;
+  color: white;
+  width: auto;
+  height: 30px;
+  padding: 2px 5px;
+  border-radius: 4px;
+  gap: 5px;
+  transition: 0.3s ease-in;
+}
+
+#oldest {
+  background-color: #5BC0BE;
+  color: white;
+  width: auto;
+  height: 30px;
+  padding: 2px 5px;
+  border-radius: 4px;
+  gap: 5px;
+  transition: 0.3s ease-in;
+}
+
+#highest_rated {
+  background-color: #5BC0BE;
+  color: white;
+  width: auto;
+  height: 30px;
+  padding: 2px 5px;
+  border-radius: 4px;
+  gap: 5px;
+  transition: 0.3s ease-in;
+}
+
+#lowest_rated {
+  background-color: #5BC0BE;
+  color: white;
+  width: auto;
+  height: 30px;
+  padding: 2px 5px;
+  border-radius: 4px;
+  gap: 5px;
+  transition: 0.3s ease-in;
 }
 
 #recent:hover {
-  background-color: #999;
+  background-color: #3AAFA9;
   cursor: pointer;
 }
 
 #oldest:hover {
-  background-color: #999;
+  background-color: #3AAFA9;
   cursor: pointer;
 }
 
 #highest_rated:hover {
-  background-color: #999;
+  background-color: #3AAFA9;
+  cursor: pointer;
+}
+
+#lowest_rated:hover {
+  background-color: #3AAFA9;
   cursor: pointer;
 }
 
 #all:hover {
-  background-color: #999;
+  background-color: #3AAFA9;
   cursor: pointer;
 }
 
