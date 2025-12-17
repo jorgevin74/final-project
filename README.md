@@ -2,14 +2,11 @@
 
 ## Live Demo
 
-
+- Include a link to the live version of the project hosted on Render.
 
 ## Project Overview
 
-This is a website that allows users to look up their favorite (or non-favorite) albums and lets users allow them to grade them on a scale from 1 - 10 and give a small piece of text window to type their review
-
-Once you click on post, then you’ll be able to add the review on the web page
-
+- This Project, Titled 'TrackLogged' allows users to get 
 
 ## Endpoints
 
@@ -17,18 +14,16 @@ Once you click on post, then you’ll be able to add the review on the web page
 
 ## Technologies Used
 
-    Languages: HTML, CSS & JavaScript
-    Other: Spotify API, MongoDB, Google Fonts
+- List the technologies and tools used in the project:
+    - **Languages**: HTML, CSS, JavaScript
+    - **Libraries**: (e.g., GSAP for animations)
+    - **Other**: Figma for design, Adobe Illustrator for illustrations, OpenAI for A.I. generated assets, etc.
 
 ## Credits
 
-https://fonts.google.com/specimen/Poppins 
-
+- List any third-party assets used in the project (e.g., sound effects, images, fonts) and provide proper attribution.
+- Acknowledge any resources, tutorials, or references you used to help complete the project.
 
 ## Future Enhancements
 
-I think I would definitely work on the responsiveness a bit more, as well just tuning and fixing up quality of life code inside of the files.
-
-Also fixing up some areas that there wasn’t no time 
-to fix such as the post area where you are writing a review I think that could be improved but for now I am happy to get this pushed out
-
+- List any features you would’ve liked to add if given more time
