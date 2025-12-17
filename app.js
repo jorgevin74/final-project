@@ -24,8 +24,6 @@ mongoose.connect(process.env.MONGO_URL)
     console.log('Error connecting to MongoDB', error);
   })
 
-const reviewRoutes = require('./routes/reviews');
-app.use('/api/review', reviewRoutes);
 
 
 // view engine setup
