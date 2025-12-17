@@ -44,7 +44,7 @@
 <main>
     <div class="list">
         {{#each list}}
-        <div class="review_content">
+        <div class="review_content" data-original-index="{{@index}}" data-created-at="{{this.createdAt}}">
             <div id="review_albumCover">
                 <img src="{{this.albumCover}}" alt="">
             </div>

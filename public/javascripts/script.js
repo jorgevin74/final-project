@@ -170,21 +170,14 @@ function addAlbumInfo(albums) {
     }
 
     //add event listener here to post the content to the board
-    postBtn.addEventListener('click', async function () {
+    postBtn.addEventListener('click', function () {
         reviewPopUp.style.display = "none";
         const userScore = document.getElementById('UserScore').value;
         const userReview = document.getElementById('userText').value;
+        addReview(albumSelected.name, albumSelected.artists[0].name, albumSelected.images[1].url, userScore, userReview);
 
-        // send to backend and get the new review object (with createdAt)
-        const newReview = await addReview(
-            albumSelected.name,
-            albumSelected.artists[0].name,
-            albumSelected.images[1].url,
-            userScore,
-            userReview
-        );
 
-        // build new review card
+        // build new review card and inject into .list
         const listEl = document.querySelector('.list');
         const reviewDiv = document.createElement('div');
         reviewDiv.classList.add('review_content');
@@ -203,9 +196,6 @@ function addAlbumInfo(albums) {
         <div id="review_text_score">
             ${newReview.review}
         </div>
-        <div id="review_time">
-            Posted: ${new Date(newReview.createdAt).toLocaleString()}
-        </div>
         <div id="review_button">
             <span class="likeCount">${newReview.numberOfLikes}</span>
         </div>
@@ -213,7 +203,6 @@ function addAlbumInfo(albums) {
 
         listEl.prepend(reviewDiv); // add to top of list
     });
-
 }
 
 //adds the review to the database
@@ -286,66 +275,6 @@ window.addEventListener('load', () => {
 closeBtn.addEventListener('click', () => {
     popup.style.display = 'none';
 });
-
-const recentBtn = document.getElementById('recent');
-const oldestBtn = document.getElementById('oldest');
-const highestRatedBtn = document.getElementById('highest_rated');
-
-function sortReviews(compareFn) {
-    const listEl = document.querySelector('.list');
-    const reviews = Array.from(listEl.querySelectorAll('.review_content'));
-
-    // sort the array of elements
-    reviews.sort(compareFn);
-
-    // clear and re-append in new order
-    listEl.innerHTML = '';
-    reviews.forEach(r => listEl.appendChild(r));
-}
-
-// sort by newest first
-recentBtn.addEventListener('click', () => {
-    sortReviews((a, b) => {
-        const timeA = new Date(a.querySelector('#review_time')?.textContent.replace('Posted: ', '') || 0);
-        const timeB = new Date(b.querySelector('#review_time')?.textContent.replace('Posted: ', '') || 0);
-        return timeB - timeA; // newest first
-    });
-});
-
-// sort by oldest first
-oldestBtn.addEventListener('click', () => {
-    sortReviews((a, b) => {
-        const timeA = new Date(a.querySelector('#review_time')?.textContent.replace('Posted: ', '') || 0);
-        const timeB = new Date(b.querySelector('#review_time')?.textContent.replace('Posted: ', '') || 0);
-        return timeA - timeB; // oldest first
-    });
-});
-
-// sort by most thumbs up
-highestRatedBtn.addEventListener('click', () => {
-    sortReviews((a, b) => {
-        const likesA = parseInt(a.querySelector('.likeCount')?.textContent || 0);
-        const likesB = parseInt(b.querySelector('.likeCount')?.textContent || 0);
-        return likesB - likesA; // highest likes first
-    });
-});
-
-const allBtn = document.getElementById('all');
-
-allBtn.addEventListener('click', function () {
-    const listEl = document.querySelector('.list');
-    const reviews = listEl.querySelectorAll('.review_content');
-
-    // clear the container
-    listEl.innerHTML = '';
-
-    // loop through and re-append in original order
-    for (let i = 0; i < reviews.length; i++) {
-        listEl.appendChild(reviews[i]);
-    }
-});
-
-
 
 
 

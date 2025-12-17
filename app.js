@@ -24,7 +24,7 @@ mongoose.connect(process.env.MONGO_URL)
     console.log('Error connecting to MongoDB', error);
   })
 
-const reviewRoutes = require('./routes/reviews');
+const reviewRoutes = require('./routes/review');
 app.use('/api/review', reviewRoutes);
 
 

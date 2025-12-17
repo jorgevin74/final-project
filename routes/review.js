@@ -22,7 +22,7 @@ router.post('/', async function (request, response) {
     try {
         const newFields = {
             ...request.body,
-            createdAt: new Date(),
+            createdAt: new Date().toISOString,
             value: 0.25,
         }
         console.log(newFields)
