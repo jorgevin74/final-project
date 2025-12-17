@@ -12,6 +12,7 @@
     <button id="recent">Recent Posts</button>
     <button id="oldest">Oldest Posts</button>
     <button id="highest_rated">Most Thumbs Up</button>
+    <button id="lowest_rated">Least Thumbs Up</button>
 </nav>
 
 <div id="popup" class="popup">
@@ -44,7 +45,7 @@
 <main>
     <div class="list">
         {{#each list}}
-        <div class="review_content">
+        <div class="review_content" data-timestamp="{{this.createdAt}}">
             <div id="review_albumCover">
                 <img src="{{this.albumCover}}" alt="">
             </div>
