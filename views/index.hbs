@@ -14,19 +14,19 @@
 </nav>
 
 <div id="popup" class="popup">
-  <div class="popup-content">
-    <h2 id="greeting">Welcome!</h2>
-    <p id="description">TrackLogged is a website that lets you review some of your favorite records and allows you to see what others have written down as well</p>
-    <button id="closePopUp">Get Started</button>
-  </div>
+    <div class="popup-content">
+        <h2 id="greeting">Welcome!</h2>
+        <p id="description">TrackLogged is a website that lets you review some of your favorite records and allows you
+            to see what others have written down as well</p>
+        <button id="closePopUp">Get Started</button>
+    </div>
 </div>
 
 <div id="review_popup">
     <div id="review_popup_content">
         <div id="album_details">
-
         </div>
-        <span>Score: <textarea name="UserScore" id="UserScore" rows="1"   cols="1"></textarea> /10</span>
+        <span>Score: <textarea name="UserScore" id="UserScore" rows="1" cols="1"></textarea> /10</span>
         <label for="userText"></label><br>
         <span>Review: <textarea id="userText" name="userText" rows="6" cols="50" required></textarea></span></textarea>
         <br>
@@ -41,7 +41,28 @@
 </div>
 
 <main>
-    <div id="review-post-area">
+    <div class="list">
+        {{#each list}}
+        <div class="review_content">
+            <div id="review_albumCover">
+                <img src="{{this.albumCover}}" alt="">
+            </div>
+            <div id="review_artist_title">
+                <span id="albumtitle">{{this.title}}</span>
+                <span id="artist">{{this.artist}}</span>
+            </div>
+            <div id="review_score">
+                <span id="score">Score: {{this.score}}</span>
+            </div>
+            <div id="review_text_score">
+                {{this.review}}
+            </div>
+            <div id="review_button">
+                <img class="likeButton" src="/images/thumbs-up.png" data-id="{{this._id}}"
+                    data-likes="{{this.numberOfLikes}}" alt="thumbs up image button">
+                <span class="likeCount">{{this.numberOfLikes}}</span>
+            </div>
+        </div>
+        {{/each}}
     </div>
 </main>
-

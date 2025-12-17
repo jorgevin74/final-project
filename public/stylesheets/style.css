@@ -1,8 +1,8 @@
-:root{
+:root {
   --background-color: gray;
 }
 
-html{
+html {
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
@@ -10,22 +10,30 @@ html{
 *,
 *:before,
 *:after {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 body {
+  font-family: 'Poppins', sans-serif;
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  
-  display:flex;
+  background-color: #D0F0FF;
+  display: flex;
   max-width: 1900px;
   flex-direction: column;
   flex-wrap: wrap;
 }
 
+button {
+  font-family: 'Poppins', sans-serif;
+}
+
+input {
+  font-family: 'Poppins', sans-serif;
+}
+
 /*Header Selector*/
 
-header{
+header {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,13 +41,13 @@ header{
   order: 1;
 }
 
-#title{
+#title {
   font-size: 3em;
 }
 
 /*Search Area Selectors*/
 
-#search_area{
+#search_area {
   flex-direction: row;
   display: flex;
   justify-content: center;
@@ -49,7 +57,7 @@ header{
   order: 2;
 }
 
-#search{
+#search {
   width: 500px;
   padding-right: 60px;
   height: 40px;
@@ -59,7 +67,7 @@ header{
   margin-left: 100px;
 }
 
-#enter{
+#enter {
   width: 100px;
   height: 40px;
   border: 1px solid #000;
@@ -69,7 +77,7 @@ header{
   right: 100px;
 }
 
-#enter:hover{
+#enter:hover {
   background-color: gray;
   cursor: pointer;
 }
@@ -77,7 +85,7 @@ header{
 
 /*Nav Bar Selectors*/
 
-nav{
+nav {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -86,7 +94,7 @@ nav{
   gap: 10px;
 }
 
-#recent{
+#recent {
   width: 100px;
   height: 30px;
   padding: 2px 5px;
@@ -96,30 +104,25 @@ nav{
   transition: 0.5s ease-in-out;
 }
 
-#recent:hover{
+#recent:hover {
   background-color: #999;
-  cursor:pointer;
+  cursor: pointer;
 }
 
-#oldest:hover{
+#oldest:hover {
   background-color: #999;
-  cursor:pointer;
+  cursor: pointer;
 }
 
-#highest_rated:hover{
+#highest_rated:hover {
   background-color: #999;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 
 /*Main Selectors*/
 
-main{
-  flex: 1 1 100%;
-  order: 4;
-}
-
-#img_area_results{
+#img_area_results {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -128,12 +131,13 @@ main{
   order: 3;
 }
 
-span,h2{
+span,
+h2 {
   display: flex;
   flex-direction: row;
 }
 
-.track{
+.track {
   display: flex;
   flex-direction: column;
   list-style-type: disc;
@@ -146,32 +150,33 @@ span,h2{
   border: solid 2px black;
   padding: 0;
   position: relative;
-  top: -45px;
+  top: -48px;
   box-shadow: 5px 5px 5px black;
 }
 
-.label{
+.label {
   color: #666;
 }
 
 .track_item {
   border-radius: 0;
-  display: flex; 
-  align-items: center; 
+  display: flex;
+  align-items: center;
   padding: 20px;
   transition: 0.2s ease-in;
   border-radius: 8px;
 }
+
 .album_cover {
   flex-shrink: 0;
 }
 
-.track_item:hover{
+.track_item:hover {
   background-color: darkgray;
   cursor: pointer;
 }
 
-.album_artwork{
+.album_artwork {
   height: 70px;
   width: 70px;
   object-fit: cover;
@@ -179,15 +184,15 @@ span,h2{
   margin-right: 10px;
 }
 
-.artist_name{
+.artist_name {
   font-size: 13px;
 }
 
-.album_title{
+.album_title {
   font-size: 13px;
 }
 
-.album_release{
+.album_release {
   font-size: 13px;
 }
 
@@ -195,13 +200,15 @@ span,h2{
 /*pop up window selectors*/
 
 #popup {
-  display: none; 
+  display: none;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1000;
 }
@@ -217,7 +224,7 @@ span,h2{
   border-radius: 10px;
 }
 
-#greeting{
+#greeting {
   text-align: center;
   justify-content: center;
 }
@@ -232,21 +239,24 @@ span,h2{
   cursor: pointer;
   transition: 0.5s ease-in-out;
 }
-#closePopUp:hover{
+
+#closePopUp:hover {
   background-color: #999;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 
 
-#review_popup{
-  display:none;
+#review_popup {
+  display: none;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1000;
 }
@@ -262,7 +272,7 @@ span,h2{
   border-radius: 10px;
 }
 
-#post{
+#post {
   font-size: 15px;
   width: 100px;
   height: 30px;
@@ -273,7 +283,119 @@ span,h2{
   transition: 0.5s ease-in-out;
 }
 
-#UserScore{
+#UserScore {
   margin-left: 10px;
 }
 
+
+
+
+
+/*Main Review Area Selectors*/
+main {
+  margin: 0 auto;
+  flex: 1 1 100%;
+  order: 4;
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  max-width: 1600px;
+}
+
+#albumtitle {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+#artist {
+  margin-top: -5px;
+  margin-bottom: 5px;
+}
+
+#score {
+  font-weight: bold;
+}
+
+
+#review_artist_title {
+  display: flex;
+  flex-direction: column
+}
+
+#review_albumCover {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+
+#review_albumCover img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 30px;
+}
+
+
+#review_text_score {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+}
+
+.review_content {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid black;
+  box-shadow: 5px 5px 5px black;
+  width: 400px;
+  height: 400px;
+  padding: 20px;
+  margin-top: 20px;
+  margin-right: 20px;
+  position: relative;
+}
+
+
+#review_button {
+  position: absolute;
+  display: flex;
+  margin-right: 5px;
+  bottom: 0;
+  right: 0;
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+
+.likeButton {
+  width: 20px;
+  height: 20px;
+}
+
+.likeButton:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .review_content {
+    width: 100%;
+    height: auto;
+    /* let height expand naturally */
+  }
+}
+
+@media (max-width: 480px) {
+  .review_content {
+    width: 100%;
+    /* full width on mobile */
+    margin-right: 0;
+  }
+}

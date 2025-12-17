@@ -1,5 +1,5 @@
 // Front end JavaScript code goes here
-const searchInput  = document.getElementById('search');
+const searchInput = document.getElementById('search');
 const enterBtn = document.getElementById('enter');
 const searchContainerEl = document.getElementById('img_area_results');
 
@@ -13,16 +13,50 @@ const reviewPopUp = document.getElementById('review_popup');
 
 const postBtn = document.getElementById('post');
 
-
-
+let albumSelected;
 
 //add the information of albums onto here
 dataArr = []
 
+
+
+//data of different background colors for the posted reviews
+colorData = ["#F263A6", "#F279BC", "#77F2F2", "#F2E641", "#F2EC99"];
+
+const albumReview = document.querySelectorAll('.review_content');
+
+for (let i = 0; i < albumReview.length; i++) {
+    const randomColor = colorData[Math.floor(Math.random() * colorData.length)];
+    albumReview[i].style.backgroundColor = randomColor;
+}
+
+
+//once you click the like button then the button will change 
+const likeBtn = document.querySelectorAll('.likeButton');
+
+for (let i = 0; i < likeBtn.length; i++) {
+    likeBtn[i].addEventListener('click', async function () {
+        likeBtn[i].src = '/images/like.png';
+        likeBtn[i].classList.add('likedBtn');
+
+        const reviewId = likeBtn[i].dataset.id;
+        const previousLikes = parseInt(likeBtn[i].dataset.likes);
+
+        const countSpan = likeBtn[i].nextElementSibling;
+        const newLikes = previousLikes + 1;
+        countSpan.textContent = newLikes;
+        likeBtn[i].dataset.likes = newLikes;
+
+
+        await updateReview(reviewId, previousLikes);
+    });
+}
+
+
 //Generate a token for the Spotify API if it doesn't exist 
-async function getToken(){
+async function getToken() {
     let token = null;
-    if(localStorage.getItem('spotifyToken')){
+    if (localStorage.getItem('spotifyToken')) {
         token = localStorage.getItem('spotifyToken');
     } else {
         const response = await fetch('/api/spotify/token');
@@ -34,10 +68,10 @@ async function getToken(){
 }
 
 //fetch an album from Spotify
-async function searchForAlbum(searchInput){
+async function searchForAlbum(searchInput) {
     const token = await getToken();
     console.log(token);
-    try{
+    try {
         const response = await fetch(`https://api.spotify.com/v1/search?q=${searchInput}&type=album`, {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -48,14 +82,14 @@ async function searchForAlbum(searchInput){
         console.log(dataArr);
 
         if (dataArr.error) {
-        localStorage.removeItem('spotifyToken');
-        searchForAlbum(searchInput);
+            localStorage.removeItem('spotifyToken');
+            return await searchForAlbum(searchInput);
         }
         else {
             return dataArr;
         }
-        } catch(error){
-            console.log('error', error);
+    } catch (error) {
+        console.log('error', error);
     }
 }
 
@@ -89,7 +123,7 @@ function addAlbumInfo(albums) {
         // --- album_info div ---
         const infoDiv = document.createElement('div');
         infoDiv.classList.add('album_info');
-        
+
         // Album Title
         const titleEl = document.createElement('h2');
         titleEl.classList.add('album_title');
@@ -107,28 +141,21 @@ function addAlbumInfo(albums) {
 
 
         //add event listener here for clickable album links
-        listItem.addEventListener('click', function(){
+        listItem.addEventListener('click', function () {
             reviewPopUp.style.display = "flex";
             UnorganizedList.style.display = "none"
-   
+
             const albumDetails = document.getElementById('album_details');
             albumDetails.innerHTML = `
                 <img src="${album.images[1].url}" class="album_artwork" />
                 <h2 class="album_title">Album: ${album.name}</h2>
                 <h2 class="artist_name">Artist: ${album.artists[0].name}</h2>
             `;
-            });
 
-        //add event listener here to post the content to the board
-        postBtn.addEventListener('click', function(){
-            reviewPopUp.style.display = "none";
+            albumSelected = album;
+        });
 
-            const userScore = document.getElementById('UserScore').value;
-            const userReview = document.getElementById('userText').value;
-            addReview(album.name, album.artists[0].name, album.images[1].url, userScore, userReview);
-        })
-        
-        
+
         // append text info
         infoDiv.appendChild(artistEl);
         infoDiv.appendChild(titleEl);
@@ -141,13 +168,22 @@ function addAlbumInfo(albums) {
         // append LI into UL
         UnorganizedList.appendChild(listItem);
     }
+
+    //add event listener here to post the content to the board
+    postBtn.addEventListener('click', function () {
+        reviewPopUp.style.display = "none";
+        const userScore = document.getElementById('UserScore').value;
+        const userReview = document.getElementById('userText').value;
+        addReview(albumSelected.name, albumSelected.artists[0].name, albumSelected.images[1].url, userScore, userReview);
+
+    });
 }
 
 //adds the review to the database
-async function addReview(reviewObjecttitle, reviewObjectArtist, reviewObjectCover, userScore, userReview){
+async function addReview(reviewObjecttitle, reviewObjectArtist, reviewObjectCover, userScore, userReview) {
     const postData = {
-        Title: reviewObjecttitle,
-        Artist: reviewObjectArtist,
+        title: reviewObjecttitle,
+        artist: reviewObjectArtist,
         albumCover: reviewObjectCover,
         score: userScore,
         review: userReview,
@@ -165,7 +201,7 @@ async function addReview(reviewObjecttitle, reviewObjectArtist, reviewObjectCove
 }
 
 /*Updates the Review and adds a thumbs up to it */
-async function updateReview(id, previousNumOfLikes){
+async function updateReview(id, previousNumOfLikes) {
     const postData = {
         numberOfLikes: previousNumOfLikes + 1
     }
@@ -183,21 +219,21 @@ async function updateReview(id, previousNumOfLikes){
 
 
 //waits a little while before retrieveing the information from the dataArray so that the info can be filled and then calls upon the other function (add album info) 
-async function retrieveAlbumInfo(SearchTerm){
+async function retrieveAlbumInfo(SearchTerm) {
     const result = await searchForAlbum(SearchTerm);
     addAlbumInfo(result.albums.items);
 }
 
 //when you press enter on the keyboard, it searches for the album from spotify
-searchInput.addEventListener('keydown', function(event){
-    if(event.key === 'Enter'){
+searchInput.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
         const itemSearchedFor = searchInput.value;
         retrieveAlbumInfo(itemSearchedFor);
     }
 });
 
 //when you click the enter button (or a search icon), it searches the album from spotify
-enterBtn.addEventListener('click', function(){
+enterBtn.addEventListener('click', function () {
     const artSearchFor = searchInput.value;
     retrieveAlbumInfo(artSearchFor);
 })
@@ -205,7 +241,7 @@ enterBtn.addEventListener('click', function(){
 
 //when you load the page the the pop up window will display as before it was hidden
 window.addEventListener('load', () => {
-  popup.style.display = 'flex';
+    popup.style.display = 'flex';
 });
 
 //once you click on the close or in this case Get Started Button, then the pop up will go away and will lead you into the website
